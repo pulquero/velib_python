@@ -71,7 +71,10 @@ class SettingsDevice(object):
 		if busitem.exists and (value, _min, _max, silent) == busitem._proxy.GetAttributes():
 			logging.debug("Setting %s found" % path)
 		else:
-			logging.info("Setting %s does not exist yet or must be adjusted" % path)
+			if busitem.exists:
+				logging.info("Setting %s found but needs adjusting (expected %s but was %s)" % path, (value, _min, _max, silent), busitem._proxy.GetAttributes())
+			else:
+				logging.info("Setting %s does not exist yet" % path)
 
 			# Prepare to add the setting. Most dbus types extend the python
 			# type so it is only necessary to additionally test for Int64.
