@@ -66,6 +66,10 @@ class VeDbusService(object):
 		self._dbusname = None
 		self.name = servicename
 
+		servicenameParts = servicename.split(".")
+		self.serviceType = servicenameParts[2]
+		self.serviceAddress = servicenameParts[3] if len(servicenameParts) == 4 else ""
+
 		# dict containing the onchange callbacks, for each object. Object path is the key
 		self._onchangecallbacks = {}
 
