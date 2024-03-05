@@ -6,8 +6,8 @@ class SettableService:
         self.supportedSettings = {}
         self.settablePaths = {}
 
-    def _init_settings(self, conn):
-        self.settings = SettingsDevice(conn, self.supportedSettings, self._setting_changed)
+    def _init_settings(self, conn, timeout=0):
+        self.settings = SettingsDevice(conn, self.supportedSettings, self._setting_changed, timeout=timeout)
         self.initializingSettings = True
         for settingName in self.supportedSettings.keys():
             path = self.settablePaths[settingName]
