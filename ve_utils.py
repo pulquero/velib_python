@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import sys
-from traceback import print_exc
 from os import _exit as os_exit
 from os import statvfs
 from subprocess import check_output, CalledProcessError
@@ -24,8 +22,7 @@ def exit_on_error(func, *args, **kwargs):
 		return func(*args, **kwargs)
 	except:
 		try:
-			print ('exit_on_error: there was an exception. Printing stacktrace will be tried and then exit')
-			print_exc()
+			logger.fatal('exit_on_error: there was an exception. Printing stacktrace will be tried and then exit', exc_info=1)
 		except:
 			pass
 
