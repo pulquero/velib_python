@@ -72,7 +72,7 @@ class SettingsDevice(object):
 			logging.debug("Setting %s found" % path)
 		else:
 			if busitem.exists:
-				logging.info("Setting %s found but needs adjusting (expected %s but was %s)" % path, (value, _min, _max, silent), busitem._proxy.GetAttributes())
+				logging.info("Setting %s found but needs adjusting (expected %s but was %s)" % (path, (value, _min, _max, silent), busitem._proxy.GetAttributes()))
 			else:
 				logging.info("Setting %s does not exist yet" % path)
 
