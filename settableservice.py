@@ -37,3 +37,12 @@ class SettableService:
     def _setting_changed(self, settingName, oldValue, newValue):
         path = self.settablePaths[settingName]
         self.service[path] = newValue
+
+    def register_device_instance(self, deviceClass, serial, preferred):
+        busitem = self.settings.addSetting(
+            f"/Settings/Devices/{serial}/ClassAndVrmInstance",
+            f"{deviceClass}:{preferred}",
+            0,
+            0
+        )
+        return int(busitem.get_value().split(':')[1])
