@@ -150,14 +150,15 @@ class DbusMonitor(object):
 		""" Override this to do more things with monitoring. """
 		return MonitoredValue(unwrap_dbus_value(value), unwrap_dbus_value(text), options)
 
-	def dbus_name_owner_changed(self, name, oldowner, newowner):
+	def dbus_name_owner_changed(self, name: dbus.String, oldowner: dbus.String, newowner: dbus.String):
+		name: str = str(name)
 		if not name.startswith("com.victronenergy."):
 			return
 
 		#decouple, and process in main loop
-		GLib.idle_add(exit_on_error, self._process_name_owner_changed, name, oldowner, newowner)
+		GLib.idle_add(exit_on_error, self._process_name_owner_changed, name, str(oldowner), str(newowner))
 
-	def _process_name_owner_changed(self, name, oldowner, newowner):
+	def _process_name_owner_changed(self, name: str, oldowner: str, newowner: str):
 		if newowner != '':
 			# so we found some new service. Check if we can do something with it.
 			newdeviceadded = self.scan_dbus_service(name)
